@@ -353,17 +353,15 @@ https://dnnn3f3cxsg2t.cloudfront.net
 
 ```sh
 amplify add storage
-? Please select from one of the below mentioned services: Content (Images, audio, video, etc.)
-? Please provide a friendly name for your resource that will be used to label this category in the project: s3e8c6e2e8
-? Please provide bucket name: sussdisinfectionregif5783b50c3ef4289a0ccd4fc856
+? Please select from one of the below mentioned services: Content (Images, audio, vi
+deo, etc.)
+? Please provide a friendly name for your resource that will be used to label this c
+ategory in the project: s3ad71f587
+? Please provide bucket name: sujupssdisinfectionr31fe549608064783a8cfad0a51a
 ? Who should have access: Auth users only
 ? What kind of access do you want for Authenticated users? create/update, read
 ? Do you want to add a Lambda Trigger for your S3 Bucket? No
-Successfully added resource s3e8c6e2e8 locally
-
-Some next steps:
-"amplify push" builds all of your local backend resources and provisions them in the cloud
-"amplify publish" builds all of your local backend and front-end resources (if you added hosting category) and provisions them in the cloud
+Successfully added resource s3ad71f587 locally
 
 amplify push
 ```
