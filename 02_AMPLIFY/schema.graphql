@@ -1,0 +1,95 @@
+type Location @model {
+    id: ID!
+    title: String!
+    selected: Boolean!
+    createdAt: String!
+    key: String!
+    location: Location @connection(name: "LocationLocations") #relationship
+    locations: [Location] @connection(name: "LocationLocations") #relationship
+ }
+ 
+ type Insurance @model {
+    id: ID!
+    title: String!
+    selected: Boolean!
+    createdAt: String!
+    key: String!
+    registers: [Register] @connection(name: "InsuranceRegisters") #relationship
+ }
+ 
+ type Company @model {
+    id: ID!
+    title: String!
+    selected: Boolean!
+    createdAt: String!
+    key: String!
+    registers: [Register] @connection(name: "CompanyRegisters") #relationship
+ }
+
+type Register @model
+    @key(name: "registersByCedula", fields: ["regCedula"], queryField: "registersByCedula") 
+    @key(name: "byEpoch", fields: ["regEpoch"], queryField: "registersByEpoch")
+    { 
+    id: ID!
+    regCedula: String!
+    regPrimerNombre: String!
+    regSegundoNombre: String!
+    regPrimerApellido: String!
+    regSegundoApellido: String!
+    regFechaNacimiento: String!
+    regCelularConductor: String!
+    regVehPlaca: String!
+    regVehSOAT: String!
+    regVehRTM: String!
+    regVehSeguros: String!
+    regVehNombrePropietario: String!
+    regVehTelefonoPropietario: String!
+    regVehMailPropietario: String!
+    regCreatedAt: AWSDateTime!
+    regOwnerId: String!
+    regVideoSrc: String!
+    regLocation: String!
+    regIsAcceptedTerms: String!
+    regVehPropCedula: String
+    regOwnerUsername: String
+    regVehEmpresa: String
+    regVehSOATCompany: String
+    regVehRTMCompany: String
+    regVehSegurosCompany: String
+    regEpoch: Int
+    location: Location @connection(name: "LocationLocations") #relationship
+    insuranceSOAT: Insurance @connection(name: "InsuranceRegisters") #relationship
+    insuranceRTM: Insurance @connection(name: "InsuranceRegisters") #relationship
+    company: Company @connection(name: "CompanyRegisters") #relationship
+ }
+ 
+
+ 
+
+ type FreeRegister @model{
+    id: ID!
+    frVehTag: String!
+    frVehPhotoSrc: String!
+    createdAt: AWSDateTime!
+ } 
+
+ type Blog @model {
+  id: ID!
+  name: String!
+  posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
+}
+
+type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+  id: ID!
+  title: String!
+  blogID: String!
+  blog: Blog @connection(fields: ["blogID"])
+  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+}
+
+type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+  id: ID!
+  postID: ID!
+  post: Post @connection(fields: ["postID"])
+  content: String!
+}
