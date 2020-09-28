@@ -535,6 +535,7 @@ https://www.youtube.com/watch?v=SxwMHqRUrBk
 
 ## AppSync
 ### Credentials
+https://master.d2b4ekdzzxc4fg.amplifyapp.com/
 sussdi351b5d00_app_clientWeb
 ClientId: 5uk4ov2ifhnhj9o5rkchlee82u
 Username: javigomez@yopmail.com
@@ -1145,3 +1146,22 @@ https://github.com/aws-amplify/amplify-cli/issues/2432
 
 ## DynamoDB migrations
 https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBPipeline.html
+
+
+# Version V1.0 branch
+
+su-ss-disinfection-register git:(development-v2) 
+
+# Domain
+
+- [Setting up custom domain Using aws-amplify console (EP-3)](https://www.youtube.com/watch?v=yPXzJ7uGUUE)
+
+
+# Create new app
+## jupiter-electronics.com
+```sh
+npx create-react-app jupiter-electronics.com
+cd my-app
+npm start
+```
+javigomez@yopmail.com

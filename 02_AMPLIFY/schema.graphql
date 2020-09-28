@@ -1,21 +1,33 @@
-type Location @model {
+type City @model {
+  id: ID!
+  title: String!
+  selected: Boolean!
+  createdAt: String!
+  key: String!
+  locations: [Location] @connection(keyName: "byCity", fields: ["id"])
+}
+
+type Location @model @key(name: "byCity", fields: ["cityID"]) {
     id: ID!
     title: String!
     selected: Boolean!
     createdAt: String!
     key: String!
-    location: Location @connection(name: "LocationLocations") #relationship
-    locations: [Location] @connection(name: "LocationLocations") #relationship
- }
+    cityID: ID!
+    city: City @connection(fields: ["cityID"])
+    registers: [Register] @connection(keyName: "byLocation", fields: ["id"])
+}
  
- type Insurance @model {
+type Insurance @model {
     id: ID!
     title: String!
     selected: Boolean!
+    type: Int!
     createdAt: String!
     key: String!
-    registers: [Register] @connection(name: "InsuranceRegisters") #relationship
- }
+    registersSOAT: [Register] @connection(keyName: "byInsuranceSOAT", fields: ["id"])
+    registersRTM: [Register] @connection(keyName: "byInsuranceRTM", fields: ["id"])
+}
  
  type Company @model {
     id: ID!
@@ -23,12 +35,26 @@ type Location @model {
     selected: Boolean!
     createdAt: String!
     key: String!
-    registers: [Register] @connection(name: "CompanyRegisters") #relationship
+    registers: [Register] @connection(keyName: "byCompany", fields: ["id"])
+ }
+
+ type Technomec @model {
+    id: ID!
+    title: String!
+    selected: Boolean!
+    createdAt: String!
+    key: String!
+    registers: [Register] @connection(keyName: "byTechnomec", fields: ["id"])
  }
 
 type Register @model
-    @key(name: "registersByCedula", fields: ["regCedula"], queryField: "registersByCedula") 
-    @key(name: "byEpoch", fields: ["regEpoch"], queryField: "registersByEpoch")
+   @key(name: "byLocation", fields: ["locationID"])
+   @key(name: "byCompany", fields: ["companyID"])
+   @key(name: "byInsuranceSOAT", fields: ["insuranceSOATID"])
+   @key(name: "byInsuranceRTM", fields: ["insuranceRTMID"])
+   @key(name: "byTechnomec", fields: ["technomecID"])
+   @key(name: "registersByCedula", fields: ["regCedula"], queryField: "registersByCedula") 
+   @key(name: "byEpoch", fields: ["regEpoch"], queryField: "registersByEpoch")
     { 
     id: ID!
     regCedula: String!
@@ -57,14 +83,17 @@ type Register @model
     regVehRTMCompany: String
     regVehSegurosCompany: String
     regEpoch: Int
-    location: Location @connection(name: "LocationLocations") #relationship
-    insuranceSOAT: Insurance @connection(name: "InsuranceRegisters") #relationship
-    insuranceRTM: Insurance @connection(name: "InsuranceRegisters") #relationship
-    company: Company @connection(name: "CompanyRegisters") #relationship
- }
- 
-
- 
+    locationID: ID!
+    location: Location @connection(fields: ["locationID"])
+    insuranceSOATID: ID!
+    insuranceSOAT: Insurance @connection(fields: ["insuranceSOATID"])
+    insuranceRTMID: ID!
+    insuranceRTM: Insurance @connection(fields: ["insuranceRTMID"])
+    technomecID: ID!
+    technomec: Insurance @connection(fields: ["technomecID"])
+    companyID: ID!
+    company: Company @connection(fields: ["companyID"])
+ }  
 
  type FreeRegister @model{
     id: ID!
@@ -72,24 +101,3 @@ type Register @model
     frVehPhotoSrc: String!
     createdAt: AWSDateTime!
  } 
-
- type Blog @model {
-  id: ID!
-  name: String!
-  posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
-}
-
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
-  id: ID!
-  title: String!
-  blogID: String!
-  blog: Blog @connection(fields: ["blogID"])
-  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
-}
-
-type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
-  id: ID!
-  postID: ID!
-  post: Post @connection(fields: ["postID"])
-  content: String!
-}

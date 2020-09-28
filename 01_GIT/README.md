@@ -22,7 +22,7 @@ cat ~/.ssh/jupiter_codecommit_rsa.pub
 ```sh
 cd ~/.ssh
 ls
-nano config 
+nano config
 
 # Add
 
